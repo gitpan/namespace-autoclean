@@ -9,12 +9,12 @@ WriteMakefile(
   NAME      => 'namespace::autoclean',
   AUTHOR    => 'Florian\ Ragwitz\ \<rafl\@debian\.org\>',
   ABSTRACT  => 'Keep imports out of your namespace',
-  VERSION   => '0.02',
+  VERSION   => '0.03',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
     "namespace::clean" => '0.11',
-    "Class::MOP" => '0',
+    "Class::MOP" => '0.80',
     "B::Hooks::EndOfScope" => '0.07',
   },
 );
