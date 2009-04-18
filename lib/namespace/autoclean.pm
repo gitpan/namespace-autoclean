@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # ABSTRACT: Keep imports out of your namespace
 
@@ -12,12 +12,14 @@ use namespace::clean;
 
 
 sub import {
+    my ($class, %args) = @_;
     my $caller = caller();
+    my @also = @{ $args{-also} || [] };
     on_scope_end {
         my $meta = Class::MOP::class_of($caller) || Class::MOP::Class->initialize($caller);
         my %methods = map { ($_ => 1) } $meta->get_method_list;
         my @symbols = keys %{ $meta->get_all_package_symbols('CODE') };
-        namespace::clean->clean_subroutines($caller, grep { !$methods{$_} } @symbols);
+        namespace::clean->clean_subroutines($caller, @also, grep { !$methods{$_} } @symbols);
     };
 }
 
@@ -30,7 +32,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
@@ -58,6 +60,12 @@ This module is very similar to L<namespace::clean|namespace::clean>, except it
 will clean all imported functions, no matter if you imported them before or
 after you C<use>d the pagma. It will also not touch anything that looks like a
 method, according to C<Class::MOP::Class::get_method_list>.
+
+Sometimes you don't want to clean imports only, but also helper functions
+you're using in your methods. The C<-also> switch can be used to declare a list
+of functions that should be removed additional to any imports:
+
+    use namespace::autoclean -also => ['some_function', 'another_function'];
 
 =head1 AUTHOR
 

@@ -6,4 +6,5 @@ Makefile.PL
 README
 dist.ini
 lib/namespace/autoclean.pm
+t/also.t
 t/basic.t
