@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 # ABSTRACT: Keep imports out of your namespace
 
@@ -14,7 +14,9 @@ use namespace::clean;
 sub import {
     my ($class, %args) = @_;
     my $caller = caller();
-    my @also = @{ $args{-also} || [] };
+    my @also = exists $args{-also}
+        ? (ref $args{-also} eq 'ARRAY' ? @{ $args{-also} } : $args{-also})
+        : ();
     on_scope_end {
         my $meta = Class::MOP::class_of($caller) || Class::MOP::Class->initialize($caller);
         my %methods = map { ($_ => 1) } $meta->get_method_list;
@@ -32,7 +34,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -66,6 +68,11 @@ you're using in your methods. The C<-also> switch can be used to declare a list
 of functions that should be removed additional to any imports:
 
     use namespace::autoclean -also => ['some_function', 'another_function'];
+
+If only one function needs to be additionally cleaned the C<-also> switch also
+accepts a plain string:
+
+    use namespace::autoclean -also => 'some_function';
 
 =head1 AUTHOR
 
