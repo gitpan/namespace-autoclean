@@ -8,3 +8,4 @@ dist.ini
 lib/namespace/autoclean.pm
 t/also.t
 t/basic.t
+t/role.t

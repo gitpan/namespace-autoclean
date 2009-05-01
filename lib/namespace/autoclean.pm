@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 # ABSTRACT: Keep imports out of your namespace
 
@@ -19,7 +19,7 @@ sub import {
         : ();
     on_scope_end {
         my $meta = Class::MOP::class_of($caller) || Class::MOP::Class->initialize($caller);
-        my %methods = map { ($_ => 1) } $meta->get_method_list;
+        my %methods = map { ($_ => 1) } keys %{$meta->get_method_map};
         my @symbols = keys %{ $meta->get_all_package_symbols('CODE') };
         namespace::clean->clean_subroutines($caller, @also, grep { !$methods{$_} } @symbols);
     };
@@ -34,7 +34,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
