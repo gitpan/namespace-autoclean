@@ -9,4 +9,5 @@ lib/namespace/autoclean.pm
 t/also.t
 t/basic.t
 t/cleanee.t
+t/matchclean.t
 t/role.t

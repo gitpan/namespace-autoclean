@@ -1,12 +1,12 @@
 
 
 This archive contains the distribution namespace-autoclean, version
-0.06:
+0.07:
 
   Keep imports out of your namespace
 
 This software is copyright (c) 2009 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
