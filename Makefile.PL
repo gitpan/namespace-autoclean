@@ -8,8 +8,8 @@ WriteMakefile(
   DISTNAME  => 'namespace-autoclean',
   NAME      => 'namespace::autoclean',
   AUTHOR    => 'Florian\ Ragwitz\ \<rafl\@debian\.org\>',
-  ABSTRACT  => 'Keep imports out of your namespace',
-  VERSION   => '0.07',
+  ABSTRACT  => 'Keep\ imports\ out\ of\ your\ namespace',
+  VERSION   => '0.08',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {

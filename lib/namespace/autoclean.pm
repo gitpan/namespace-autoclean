@@ -2,7 +2,7 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 # ABSTRACT: Keep imports out of your namespace
 
@@ -61,7 +61,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 SYNOPSIS
 
