@@ -10,4 +10,6 @@ t/also.t
 t/basic.t
 t/cleanee.t
 t/matchclean.t
+t/release-pod-coverage.t
+t/release-pod-syntax.t
 t/role.t
