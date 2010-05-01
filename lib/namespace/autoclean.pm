@@ -2,8 +2,9 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
-our $VERSION = '0.09';
-
+BEGIN {
+  $namespace::autoclean::VERSION = '0.10';
+}
 # ABSTRACT: Keep imports out of your namespace
 
 use Class::MOP;
@@ -56,7 +57,6 @@ sub import {
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -65,7 +65,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 SYNOPSIS
 
@@ -100,7 +100,7 @@ peers), you can use the C<-cleanee> switch to specify what package to clean:
   package My::MooseX::namespace::autoclean;
   use strict;
 
-  use namespace::autocleanclean (); # no cleanup, just load
+  use namespace::autoclean (); # no cleanup, just load
 
   sub import {
       namespace::autoclean->import(
@@ -150,19 +150,16 @@ L<Class::MOP>
 
 L<B::Hooks::EndOfScope>
 
-
-
 =head1 AUTHOR
 
   Florian Ragwitz <rafl@debian.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Florian Ragwitz.
+This software is copyright (c) 2010 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

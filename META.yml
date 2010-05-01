@@ -2,15 +2,19 @@
 abstract: 'Keep imports out of your namespace'
 author:
   - 'Florian Ragwitz <rafl@debian.org>'
-generated_by: 'Dist::Zilla::Plugin::MetaYAML version 1.092450'
+build_requires: {}
+configure_requires:
+  ExtUtils::MakeMaker: 6.31
+generated_by: 'Dist::Zilla version 2.101170'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: namespace-autoclean
+recommends: {}
 requires:
   B::Hooks::EndOfScope: 0.07
   Class::MOP: 0.80
   List::Util: 0
   namespace::clean: 0.11
-version: 0.09
+version: 0.10
