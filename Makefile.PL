@@ -9,27 +9,31 @@ use ExtUtils::MakeMaker 6.31;
 
 
 my %WriteMakefileArgs = (
-                       'test' => {
-                                   'TESTS' => 't/*.t'
-                                 },
-                       'NAME' => 'namespace::autoclean',
-                       'DISTNAME' => 'namespace-autoclean',
-                       'CONFIGURE_REQUIRES' => {
-                                                 'ExtUtils::MakeMaker' => '6.31'
-                                               },
-                       'AUTHOR' => 'Florian Ragwitz <rafl@debian.org>',
-                       'BUILD_REQUIRES' => {},
-                       'ABSTRACT' => 'Keep imports out of your namespace',
-                       'EXE_FILES' => [],
-                       'VERSION' => '0.10',
-                       'PREREQ_PM' => {
-                                        'namespace::clean' => '0.11',
-                                        'List::Util' => '0',
-                                        'Class::MOP' => '0.80',
-                                        'B::Hooks::EndOfScope' => '0.07'
-                                      },
-                       'LICENSE' => 'perl'
-                     );
+  'ABSTRACT' => 'Keep imports out of your namespace',
+  'AUTHOR' => 'Florian Ragwitz <rafl@debian.org>',
+  'BUILD_REQUIRES' => {
+    'Moose::Role' => '0',
+    'Sub::Name' => '0',
+    'Test::More' => '0'
+  },
+  'CONFIGURE_REQUIRES' => {
+    'ExtUtils::MakeMaker' => '6.31'
+  },
+  'DISTNAME' => 'namespace-autoclean',
+  'EXE_FILES' => [],
+  'LICENSE' => 'perl',
+  'NAME' => 'namespace::autoclean',
+  'PREREQ_PM' => {
+    'B::Hooks::EndOfScope' => '0',
+    'Class::MOP' => '0.80',
+    'List::Util' => '0',
+    'namespace::clean' => '0.11'
+  },
+  'VERSION' => '0.11',
+  'test' => {
+    'TESTS' => 't/*.t'
+  }
+);
 
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {

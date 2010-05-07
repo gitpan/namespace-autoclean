@@ -3,14 +3,17 @@ use warnings;
 
 package namespace::autoclean;
 BEGIN {
-  $namespace::autoclean::VERSION = '0.10';
+  $namespace::autoclean::AUTHORITY = 'cpan:FLORA';
+}
+BEGIN {
+  $namespace::autoclean::VERSION = '0.11';
 }
 # ABSTRACT: Keep imports out of your namespace
 
-use Class::MOP;
+use Class::MOP 0.80;
 use B::Hooks::EndOfScope;
 use List::Util qw( first );
-use namespace::clean;
+use namespace::clean 0.11;
 
 
 sub import {
@@ -62,10 +65,6 @@ __END__
 =head1 NAME
 
 namespace::autoclean - Keep imports out of your namespace
-
-=head1 VERSION
-
-version 0.10
 
 =head1 SYNOPSIS
 
