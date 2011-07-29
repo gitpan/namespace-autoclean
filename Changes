@@ -1,3 +1,9 @@
+0.1202  Thu, 28 Jul 2011 22:05:00 -0800
+  * Support Mouse; requires Package::Stash and Sub::Identify
+
+0.1201  Wed, 27 Jul 2011 00:00:00 +0000
+  * Add -except
+
 0.12  Fri, 04 Feb 2010 10:39:00 +0000
   * Bump namespace::clean dep to 0.20 to pull in the bugfix for
     Package::Stash::XS 0.19
