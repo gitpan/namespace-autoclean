@@ -15,7 +15,8 @@ my %WriteMakefileArgs = (
     'Moose::Role' => '0',
     'Mouse' => '0',
     'Sub::Name' => '0',
-    'Test::More' => '0'
+    'Test::More' => '0',
+    'overload' => '0'
   },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.30'
@@ -32,7 +33,7 @@ my %WriteMakefileArgs = (
     'Sub::Identify' => '0',
     'namespace::clean' => '0.20'
   },
-  'VERSION' => '0.1202',
+  'VERSION' => '0.1204',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -5,8 +5,8 @@ package namespace::autoclean;
 BEGIN {
   $namespace::autoclean::AUTHORITY = 'cpan:FLORA';
 }
-BEGIN {
-  $namespace::autoclean::VERSION = '0.1202';
+{
+  $namespace::autoclean::VERSION = '0.1204';
 }
 # ABSTRACT: Keep imports out of your namespace
 
@@ -74,7 +74,10 @@ sub import {
         }
     };
 
+    my $already;
     on_scope_end {
+        return if $already++;
+
         my $meta = $MCC->initialize($cleanee);
 
         my %methods = map { ($_ => 1) } $meta->$GETMETHODS;
@@ -84,7 +87,7 @@ sub import {
            delete $methods{$method} if first { $runtest->($_, $method) } @also;
         }
 
-        my @symbols = $meta->$GETSYMS;
+        my @symbols = grep { !/^\(/ } $meta->$GETSYMS;
         for my $symbol (@symbols) {
             next if exists $methods{$symbol};
             $methods{ $symbol } = 1 if first { $runtest->($_, $symbol) } @except;
