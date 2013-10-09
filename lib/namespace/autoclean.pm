@@ -6,12 +6,14 @@ BEGIN {
   $namespace::autoclean::AUTHORITY = 'cpan:FLORA';
 }
 {
-  $namespace::autoclean::VERSION = '0.13';
+  $namespace::autoclean::VERSION = '0.14';
 }
+# git description: 0.13-5-g6038238
+
 # ABSTRACT: Keep imports out of your namespace
 
 use Class::MOP 0.80;
-use B::Hooks::EndOfScope;
+use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
 use namespace::clean 0.20;
 
@@ -60,6 +62,7 @@ sub import {
 1;
 
 __END__
+
 =pod
 
 =encoding utf-8
@@ -155,12 +158,49 @@ L<B::Hooks::EndOfScope>
 
 Florian Ragwitz <rafl@debian.org>
 
+=head1 CONTRIBUTORS
+
+=over 4
+
+=item *
+
+Andrew Rodland <andrew@hbslabs.com>
+
+=item *
+
+Chris Prather <cprather@hdpublishing.com>
+
+=item *
+
+Dave Rolsky <autarch@urth.org>
+
+=item *
+
+Felix Ostmann <sadrak@sadrak-laptop.(none)>
+
+=item *
+
+Karen Etheridge <ether@cpan.org>
+
+=item *
+
+Kent Fredric <kentfredric@gmail.com>
+
+=item *
+
+Shawn M Moore <sartak@gmail.com>
+
+=item *
+
+Tomas Doran <bobtfish@bobtfish.net>
+
+=back
+
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Florian Ragwitz.
+This software is copyright (c) 2009 by Florian Ragwitz.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
