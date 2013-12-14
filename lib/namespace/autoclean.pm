@@ -2,14 +2,14 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
+{
+  $namespace::autoclean::VERSION = '0.15';
+}
+# git description: 0.14-4-g972ec20
+
 BEGIN {
   $namespace::autoclean::AUTHORITY = 'cpan:FLORA';
 }
-{
-  $namespace::autoclean::VERSION = '0.14';
-}
-# git description: 0.13-5-g6038238
-
 # ABSTRACT: Keep imports out of your namespace
 
 use Class::MOP 0.80;
@@ -65,7 +65,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
