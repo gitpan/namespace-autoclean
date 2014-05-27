@@ -2,21 +2,123 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
-{
-  $namespace::autoclean::VERSION = '0.15';
-}
-# git description: 0.14-4-g972ec20
-
 BEGIN {
   $namespace::autoclean::AUTHORITY = 'cpan:FLORA';
 }
+# git description: 0.15-32-g999f3ab
+$namespace::autoclean::VERSION = '0.16'; # TRIAL
 # ABSTRACT: Keep imports out of your namespace
 
-use Class::MOP 0.80;
 use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
 use namespace::clean 0.20;
 
+#pod =head1 SYNOPSIS
+#pod
+#pod     package Foo;
+#pod     use namespace::autoclean;
+#pod     use Some::Package qw/imported_function/;
+#pod
+#pod     sub bar { imported_function('stuff') }
+#pod
+#pod     # later on:
+#pod     Foo->bar;               # works
+#pod     Foo->imported_function; # will fail. imported_function got cleaned after compilation
+#pod
+#pod =head1 DESCRIPTION
+#pod
+#pod When you import a function into a Perl package, it will naturally also be
+#pod available as a method.
+#pod
+#pod The C<namespace::autoclean> pragma will remove all imported symbols at the end
+#pod of the current package's compile cycle. Functions called in the package itself
+#pod will still be bound by their name, but they won't show up as methods on your
+#pod class or instances.
+#pod
+#pod This module is very similar to L<namespace::clean|namespace::clean>, except it
+#pod will clean all imported functions, no matter if you imported them before or
+#pod after you C<use>d the pragma. It will also not touch anything that looks like a
+#pod method.
+#pod
+#pod If you're writing an exporter and you want to clean up after yourself (and your
+#pod peers), you can use the C<-cleanee> switch to specify what package to clean:
+#pod
+#pod   package My::MooseX::namespace::autoclean;
+#pod   use strict;
+#pod
+#pod   use namespace::autoclean (); # no cleanup, just load
+#pod
+#pod   sub import {
+#pod       namespace::autoclean->import(
+#pod         -cleanee => scalar(caller),
+#pod       );
+#pod   }
+#pod
+#pod =head1 WHAT IS AND ISN'T CLEANED
+#pod
+#pod C<namespace::autoclean> will leave behind anything that it deems a method.  For
+#pod L<Moose> or L<Mouse> classes, this the based on the C<get_method_list> method
+#pod on from the L<Class::MOP::Class|metaclass>.  For non-Moose classes, anything
+#pod defined within the package will be identified as a method.  This should match
+#pod Moose's definition of a method.  Additionally, the magic subs installed by
+#pod L<overload> will not be cleaned.
+#pod
+#pod =head1 PARAMETERS
+#pod
+#pod =head2 -also => [ ITEM | REGEX | SUB, .. ]
+#pod
+#pod =head2 -also => ITEM
+#pod
+#pod =head2 -also => REGEX
+#pod
+#pod =head2 -also => SUB
+#pod
+#pod Sometimes you don't want to clean imports only, but also helper functions
+#pod you're using in your methods. The C<-also> switch can be used to declare a list
+#pod of functions that should be removed additional to any imports:
+#pod
+#pod     use namespace::autoclean -also => ['some_function', 'another_function'];
+#pod
+#pod If only one function needs to be additionally cleaned the C<-also> switch also
+#pod accepts a plain string:
+#pod
+#pod     use namespace::autoclean -also => 'some_function';
+#pod
+#pod In some situations, you may wish for a more I<powerful> cleaning solution.
+#pod
+#pod The C<-also> switch can take a Regex or a CodeRef to match against local
+#pod function names to clean.
+#pod
+#pod     use namespace::autoclean -also => qr/^_/
+#pod
+#pod     use namespace::autoclean -also => sub { $_ =~ m{^_} };
+#pod
+#pod     use namespace::autoclean -also => [qr/^_/ , qr/^hidden_/ ];
+#pod
+#pod     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
+#pod
+#pod =head1 CAVEATS
+#pod
+#pod When used with L<Moo> classes, the heuristic used to check for methods won't
+#pod work correctly for methods from roles consumed at compile time.
+#pod
+#pod   package My::Class;
+#pod   use Moo;
+#pod   use namespace::autoclean;
+#pod
+#pod   # Bad, any consumed methods will be cleaned
+#pod   BEGIN { with 'Some::Role' }
+#pod
+#pod   # Good, methods from role will be maintained
+#pod   with 'Some::Role';
+#pod
+#pod =head1 SEE ALSO
+#pod
+#pod L<namespace::clean>
+#pod
+#pod L<B::Hooks::EndOfScope>
+#pod
+#pod =cut
 
 sub import {
     my ($class, %args) = @_;
@@ -43,20 +145,45 @@ sub import {
     );
 
     on_scope_end {
-        my $meta = Class::MOP::Class->initialize($cleanee);
-        my %methods = map { ($_ => 1) } $meta->get_method_list;
-        $methods{meta} = 1 if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
-        my %extra = ();
+        my $subs = namespace::clean->get_functions($cleanee);
+        my $method_check = _method_check($cleanee);
 
-        for my $method (keys %methods) {
-            next if exists $extra{$_};
-            next unless first { $runtest->($_, $method) } @also;
-            $extra{ $method } = 1;
-        }
+        my @clean = grep {
+          my $method = $_;
+          !$method_check->($method)
+          || first { $runtest->($_, $method) } @also;
+        } keys %$subs;
 
-        my @symbols = keys %{ $meta->get_all_package_symbols('CODE') };
-        namespace::clean->clean_subroutines($cleanee, keys %extra, grep { !$methods{$_} } @symbols);
+        namespace::clean->clean_subroutines($cleanee, @clean);
     };
+}
+
+sub _method_check {
+    my $package = shift;
+    my $meta;
+    if (
+      (defined &Class::MOP::class_of and $meta = Class::MOP::class_of($package))
+      or (defined &Mouse::Util::class_of and $meta = Mouse::Util::class_of($package))
+    ) {
+        my %methods = map { $_ => 1 } $meta->get_method_list;
+        $methods{meta} = 1
+          if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
+        return sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
+    }
+    else {
+        my $does = $package->can('does') ? 'does'
+                 : $package->can('DOES') ? 'DOES'
+                 : undef;
+        require Sub::Identify;
+        return sub {
+            return 1 if $_[0] =~ /^\(/;
+            my $coderef = do { no strict 'refs'; \&{ $package . '::' . $_[0] } };
+            my $code_stash = Sub::Identify::stash_name($coderef);
+            return 1 if $code_stash eq $package;
+            return 1 if $does && $package->$does($code_stash);
+            return 0;
+        };
+    }
 }
 
 1;
@@ -96,7 +223,7 @@ class or instances.
 This module is very similar to L<namespace::clean|namespace::clean>, except it
 will clean all imported functions, no matter if you imported them before or
 after you C<use>d the pragma. It will also not touch anything that looks like a
-method, according to C<Class::MOP::Class::get_method_list>.
+method.
 
 If you're writing an exporter and you want to clean up after yourself (and your
 peers), you can use the C<-cleanee> switch to specify what package to clean:
@@ -111,6 +238,15 @@ peers), you can use the C<-cleanee> switch to specify what package to clean:
         -cleanee => scalar(caller),
       );
   }
+
+=head1 WHAT IS AND ISN'T CLEANED
+
+C<namespace::autoclean> will leave behind anything that it deems a method.  For
+L<Moose> or L<Mouse> classes, this the based on the C<get_method_list> method
+on from the L<Class::MOP::Class|metaclass>.  For non-Moose classes, anything
+defined within the package will be identified as a method.  This should match
+Moose's definition of a method.  Additionally, the magic subs installed by
+L<overload> will not be cleaned.
 
 =head1 PARAMETERS
 
@@ -146,11 +282,24 @@ function names to clean.
 
     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
 
+=head1 CAVEATS
+
+When used with L<Moo> classes, the heuristic used to check for methods won't
+work correctly for methods from roles consumed at compile time.
+
+  package My::Class;
+  use Moo;
+  use namespace::autoclean;
+
+  # Bad, any consumed methods will be cleaned
+  BEGIN { with 'Some::Role' }
+
+  # Good, methods from role will be maintained
+  with 'Some::Role';
+
 =head1 SEE ALSO
 
 L<namespace::clean>
-
-L<Class::MOP>
 
 L<B::Hooks::EndOfScope>
 
@@ -177,6 +326,10 @@ Dave Rolsky <autarch@urth.org>
 =item *
 
 Felix Ostmann <sadrak@sadrak-laptop.(none)>
+
+=item *
+
+Graham Knop <haarg@haarg.org>
 
 =item *
 
