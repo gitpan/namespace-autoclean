@@ -5,8 +5,8 @@ package namespace::autoclean;
 BEGIN {
   $namespace::autoclean::AUTHORITY = 'cpan:FLORA';
 }
-# git description: 0.15-32-g999f3ab
-$namespace::autoclean::VERSION = '0.16'; # TRIAL
+# git description: 0.16-TRIAL-6-g9ea0c84
+$namespace::autoclean::VERSION = '0.17';
 # ABSTRACT: Keep imports out of your namespace
 
 use B::Hooks::EndOfScope 0.12;
@@ -97,6 +97,17 @@ use namespace::clean 0.20;
 #pod
 #pod     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
 #pod
+#pod =head2 -except => [ ITEM | REGEX | SUB, .. ]
+#pod
+#pod =head2 -except => ITEM
+#pod
+#pod =head2 -except => REGEX
+#pod
+#pod =head2 -except => SUB
+#pod
+#pod This takes exactly the same options as C<-also> except that anything this
+#pod matches will I<not> be cleaned.
+#pod
 #pod =head1 CAVEATS
 #pod
 #pod When used with L<Moo> classes, the heuristic used to check for methods won't
@@ -144,14 +155,21 @@ sub import {
         : ()
     );
 
+    my @except = map { $subcast->($_) } (
+        exists $args{-except}
+        ? (ref $args{-except} eq 'ARRAY' ? @{ $args{-except} } : $args{-except})
+        : ()
+    );
+
     on_scope_end {
         my $subs = namespace::clean->get_functions($cleanee);
         my $method_check = _method_check($cleanee);
 
         my @clean = grep {
           my $method = $_;
-          !$method_check->($method)
-          || first { $runtest->($_, $method) } @also;
+          ! first { $runtest->($_, $method) } @except
+            and ( !$method_check->($method)
+              or first { $runtest->($_, $method) } @also)
         } keys %$subs;
 
         namespace::clean->clean_subroutines($cleanee, @clean);
@@ -281,6 +299,17 @@ function names to clean.
     use namespace::autoclean -also => [qr/^_/ , qr/^hidden_/ ];
 
     use namespace::autoclean -also => [sub { $_ =~ m/^_/ or $_ =~ m/^hidden/ }, sub { uc($_) == $_ } ];
+
+=head2 -except => [ ITEM | REGEX | SUB, .. ]
+
+=head2 -except => ITEM
+
+=head2 -except => REGEX
+
+=head2 -except => SUB
+
+This takes exactly the same options as C<-also> except that anything this
+matches will I<not> be cleaned.
 
 =head1 CAVEATS
 

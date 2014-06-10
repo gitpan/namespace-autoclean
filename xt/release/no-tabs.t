@@ -12,6 +12,7 @@ my @files = (
     't/also.t',
     't/basic.t',
     't/cleanee.t',
+    't/except.t',
     't/matchclean.t',
     't/moo-role.t',
     't/moo.t',

@@ -51,7 +51,7 @@ my $static_prereqs = do { my $x = {
                       },
        'develop' => {
                       'recommends' => {
-                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.064',
+                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.065',
                                         'Mouse' => '0'
                                       },
                       'requires' => {
@@ -61,7 +61,7 @@ my $static_prereqs = do { my $x = {
                                       'Dist::Zilla::Plugin::GitHub::Update' => '0',
                                       'Dist::Zilla::Plugin::GithubMeta' => '0',
                                       'Dist::Zilla::Plugin::MakeMaker::Fallback' => '0.008',
-                                      'Dist::Zilla::Plugin::ModuleBuildTiny' => '0.004',
+                                      'Dist::Zilla::Plugin::ModuleBuildTiny::Fallback' => '0.005',
                                       'Dist::Zilla::Plugin::Prereqs' => '0',
                                       'Dist::Zilla::PluginBundle::Author::ETHER' => '0.028',
                                       'Exporter' => '5.57',
