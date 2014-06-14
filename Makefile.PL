@@ -88,7 +88,9 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
+    "Carp" => 0,
     "ExtUtils::MakeMaker" => 0,
+    "File::Basename" => 0,
     "File::Spec::Functions" => 0,
     "Scalar::Util" => 0,
     "Test::More" => "0.88",
@@ -96,7 +98,7 @@ my %WriteMakefileArgs = (
     "overload" => 0,
     "version" => 0
   },
-  "VERSION" => "0.17",
+  "VERSION" => "0.18",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -105,7 +107,9 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "B::Hooks::EndOfScope" => "0.12",
+  "Carp" => 0,
   "ExtUtils::MakeMaker" => 0,
+  "File::Basename" => 0,
   "File::Spec::Functions" => 0,
   "List::Util" => 0,
   "Scalar::Util" => 0,

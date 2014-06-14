@@ -64,7 +64,7 @@ EOW
         "Florian Ragwitz <rafl\@debian.org>"
       ],
       "dist_name" => "namespace-autoclean",
-      "dist_version" => "0.17",
+      "dist_version" => "0.18",
       "license" => "perl",
       "module_name" => "namespace::autoclean",
       "recommends" => {},
@@ -80,7 +80,9 @@ EOW
       },
       "script_files" => [],
       "test_requires" => {
+        "Carp" => 0,
         "ExtUtils::MakeMaker" => 0,
+        "File::Basename" => 0,
         "File::Spec::Functions" => 0,
         "Scalar::Util" => 0,
         "Test::More" => "0.88",
@@ -92,7 +94,9 @@ EOW
 
 
     my %fallback_build_requires = (
+      "Carp" => 0,
       "ExtUtils::MakeMaker" => 0,
+      "File::Basename" => 0,
       "File::Spec::Functions" => 0,
       "Scalar::Util" => 0,
       "Test::More" => "0.88",

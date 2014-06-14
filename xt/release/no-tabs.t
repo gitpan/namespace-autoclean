@@ -20,6 +20,7 @@ my @files = (
     't/moose-withoverloading.t',
     't/moose.t',
     't/moosex-markasmethods.t',
+    't/mouse.t',
     't/overload.t',
     't/sub-name.t',
     'xt/author/00-compile.t',

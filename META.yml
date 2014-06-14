@@ -3,7 +3,9 @@ abstract: 'Keep imports out of your namespace'
 author:
   - 'Florian Ragwitz <rafl@debian.org>'
 build_requires:
+  Carp: '0'
   ExtUtils::MakeMaker: '0'
+  File::Basename: '0'
   File::Spec::Functions: '0'
   Scalar::Util: '0'
   Test::More: '0.88'
@@ -27,7 +29,7 @@ no_index:
 provides:
   namespace::autoclean:
     file: lib/namespace/autoclean.pm
-    version: '0.17'
+    version: '0.18'
 requires:
   B::Hooks::EndOfScope: '0.12'
   List::Util: '0'
@@ -40,7 +42,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=namespace-autoclean
   homepage: https://github.com/moose/namespace-autoclean
   repository: https://github.com/moose/namespace-autoclean.git
-version: '0.17'
+version: '0.18'
 x_Dist_Zilla:
   perl:
     version: '5.020000'
@@ -55,11 +57,11 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::ETHER/Git::NextVersion'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::EnsurePrereqsInstalled
       name: '@Author::ETHER/EnsurePrereqsInstalled'
-      version: '0.002'
+      version: '0.003'
     -
       class: Dist::Zilla::Plugin::PromptIfStale
       config:
@@ -107,7 +109,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::ETHER/Git::GatherDir'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::MetaYAML
       name: '@Author::ETHER/MetaYAML'
@@ -149,7 +151,7 @@ x_Dist_Zilla:
             - ':ExecFiles'
             - '@Author::ETHER/Examples'
       name: '@Author::ETHER/Test::Compile'
-      version: '2.042'
+      version: '2.043'
     -
       class: Dist::Zilla::Plugin::Test::NoTabs
       config:
@@ -434,7 +436,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::ETHER/initial check'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::Git::CheckFor::MergeConflicts
       config:
@@ -473,7 +475,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::ETHER/after tests'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::CheckIssues
       name: '@Author::ETHER/CheckIssues'
@@ -505,21 +507,21 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::ETHER/Git::Commit'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::Git::Tag
       config:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: '0.17'
+          tag: '0.18'
           tag_format: '%v%t'
           tag_message: v%v%t
           time_zone: local
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::ETHER/Git::Tag'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::GitHub::Update
       name: '@Author::ETHER/GitHub::Update'
@@ -534,7 +536,7 @@ x_Dist_Zilla:
         Dist::Zilla::Role::Git::Repo:
           repo_root: .
       name: '@Author::ETHER/Git::Push'
-      version: '2.022'
+      version: '2.023'
     -
       class: Dist::Zilla::Plugin::InstallRelease
       name: '@Author::ETHER/InstallRelease'
@@ -558,14 +560,6 @@ x_Dist_Zilla:
           phase: develop
           type: requires
       name: DevelopRequires
-      version: '5.019'
-    -
-      class: Dist::Zilla::Plugin::Prereqs
-      config:
-        Dist::Zilla::Plugin::Prereqs:
-          phase: develop
-          type: recommends
-      name: DevelopRecommends
       version: '5.019'
     -
       class: Dist::Zilla::Plugin::ContributorsFromGit

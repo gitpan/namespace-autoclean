@@ -51,8 +51,7 @@ my $static_prereqs = do { my $x = {
                       },
        'develop' => {
                       'recommends' => {
-                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.065',
-                                        'Mouse' => '0'
+                                        'Dist::Zilla::PluginBundle::Author::ETHER' => '0.065'
                                       },
                       'requires' => {
                                       'Class::MOP' => '0',
@@ -74,6 +73,7 @@ my $static_prereqs = do { my $x = {
                                       'MooseX::MarkAsMethods' => '0',
                                       'MooseX::Role::Parameterized' => '0',
                                       'MooseX::Role::WithOverloading' => '0',
+                                      'Mouse' => '0',
                                       'Pod::Coverage::TrustPod' => '0',
                                       'Pod::Weaver' => '4',
                                       'Pod::Weaver::Section::Contributors' => '0',
@@ -108,7 +108,9 @@ my $static_prereqs = do { my $x = {
                                      'CPAN::Meta::Requirements' => '2.120900'
                                    },
                    'requires' => {
+                                   'Carp' => '0',
                                    'ExtUtils::MakeMaker' => '0',
+                                   'File::Basename' => '0',
                                    'File::Spec::Functions' => '0',
                                    'Scalar::Util' => '0',
                                    'Test::More' => '0.88',

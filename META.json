@@ -28,8 +28,7 @@
       },
       "develop" : {
          "recommends" : {
-            "Dist::Zilla::PluginBundle::Author::ETHER" : "0.065",
-            "Mouse" : "0"
+            "Dist::Zilla::PluginBundle::Author::ETHER" : "0.065"
          },
          "requires" : {
             "Class::MOP" : "0",
@@ -51,6 +50,7 @@
             "MooseX::MarkAsMethods" : "0",
             "MooseX::Role::Parameterized" : "0",
             "MooseX::Role::WithOverloading" : "0",
+            "Mouse" : "0",
             "Pod::Coverage::TrustPod" : "0",
             "Pod::Weaver" : "4",
             "Pod::Weaver::Section::Contributors" : "0",
@@ -85,7 +85,9 @@
             "CPAN::Meta::Requirements" : "2.120900"
          },
          "requires" : {
+            "Carp" : "0",
             "ExtUtils::MakeMaker" : "0",
+            "File::Basename" : "0",
             "File::Spec::Functions" : "0",
             "Scalar::Util" : "0",
             "Test::More" : "0.88",
@@ -98,7 +100,7 @@
    "provides" : {
       "namespace::autoclean" : {
          "file" : "lib/namespace/autoclean.pm",
-         "version" : "0.17"
+         "version" : "0.18"
       }
    },
    "release_status" : "stable",
@@ -114,7 +116,7 @@
          "web" : "https://github.com/moose/namespace-autoclean"
       }
    },
-   "version" : "0.17",
+   "version" : "0.18",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.020000"
@@ -133,12 +135,12 @@
                }
             },
             "name" : "@Author::ETHER/Git::NextVersion",
-            "version" : "2.022"
+            "version" : "2.023"
          },
          {
             "class" : "Dist::Zilla::Plugin::EnsurePrereqsInstalled",
             "name" : "@Author::ETHER/EnsurePrereqsInstalled",
-            "version" : "0.002"
+            "version" : "0.003"
          },
          {
             "class" : "Dist::Zilla::Plugin::PromptIfStale",
@@ -201,7 +203,7 @@
                }
             },
             "name" : "@Author::ETHER/Git::GatherDir",
-            "version" : "2.022"
+            "version" : "2.023"
          },
          {
             "class" : "Dist::Zilla::Plugin::MetaYAML",
@@ -256,7 +258,7 @@
                }
             },
             "name" : "@Author::ETHER/Test::Compile",
-            "version" : "2.042"
+            "version" : "2.043"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::NoTabs",
@@ -628,7 +630,7 @@
                }
             },
             "name" : "@Author::ETHER/initial check",
-            "version" : "2.022"
+            "version" : "2.023"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::CheckFor::MergeConflicts",
@@ -681,7 +683,7 @@
                }
             },
             "name" : "@Author::ETHER/after tests",
-            "version" : "2.022"
+            "version" : "2.023"
          },
          {
             "class" : "Dist::Zilla::Plugin::CheckIssues",
@@ -723,7 +725,7 @@
                }
             },
             "name" : "@Author::ETHER/Git::Commit",
-            "version" : "2.022"
+            "version" : "2.023"
          },
          {
             "class" : "Dist::Zilla::Plugin::Git::Tag",
@@ -731,7 +733,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "0.17",
+                  "tag" : "0.18",
                   "tag_format" : "%v%t",
                   "tag_message" : "v%v%t",
                   "time_zone" : "local"
@@ -741,7 +743,7 @@
                }
             },
             "name" : "@Author::ETHER/Git::Tag",
-            "version" : "2.022"
+            "version" : "2.023"
          },
          {
             "class" : "Dist::Zilla::Plugin::GitHub::Update",
@@ -762,7 +764,7 @@
                }
             },
             "name" : "@Author::ETHER/Git::Push",
-            "version" : "2.022"
+            "version" : "2.023"
          },
          {
             "class" : "Dist::Zilla::Plugin::InstallRelease",
@@ -794,17 +796,6 @@
                }
             },
             "name" : "DevelopRequires",
-            "version" : "5.019"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::Prereqs",
-            "config" : {
-               "Dist::Zilla::Plugin::Prereqs" : {
-                  "phase" : "develop",
-                  "type" : "recommends"
-               }
-            },
-            "name" : "DevelopRecommends",
             "version" : "5.019"
          },
          {
