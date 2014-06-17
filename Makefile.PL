@@ -95,10 +95,11 @@ my %WriteMakefileArgs = (
     "Scalar::Util" => 0,
     "Test::More" => "0.88",
     "Test::Requires" => 0,
+    "constant" => 0,
     "overload" => 0,
     "version" => 0
   },
-  "VERSION" => "0.18",
+  "VERSION" => "0.19",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -116,6 +117,7 @@ my %FallbackPrereqs = (
   "Sub::Identify" => 0,
   "Test::More" => "0.88",
   "Test::Requires" => 0,
+  "constant" => 0,
   "namespace::clean" => "0.20",
   "overload" => 0,
   "strict" => 0,

@@ -5,9 +5,10 @@ package namespace::autoclean;
 BEGIN {
   $namespace::autoclean::AUTHORITY = 'cpan:FLORA';
 }
-# git description: 0.17-8-gc39fcbd
-$namespace::autoclean::VERSION = '0.18';
+# git description: 0.18-15-g89e453d
+$namespace::autoclean::VERSION = '0.19';
 # ABSTRACT: Keep imports out of your namespace
+# KEYWORDS: namespaces clean dirty imports exports subroutines methods development
 
 use B::Hooks::EndOfScope 0.12;
 use List::Util qw( first );
@@ -197,6 +198,7 @@ sub _method_check {
             my $code_stash = Sub::Identify::stash_name($coderef);
             return 1 if $code_stash eq $package;
             return 1 if $does && $package->$does($code_stash);
+            return 1 if $code_stash eq 'constant';
             return 0;
         };
     }

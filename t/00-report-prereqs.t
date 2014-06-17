@@ -115,6 +115,7 @@ my $static_prereqs = do { my $x = {
                                    'Scalar::Util' => '0',
                                    'Test::More' => '0.88',
                                    'Test::Requires' => '0',
+                                   'constant' => '0',
                                    'overload' => '0',
                                    'version' => '0'
                                  }

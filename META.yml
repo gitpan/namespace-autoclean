@@ -10,6 +10,7 @@ build_requires:
   Scalar::Util: '0'
   Test::More: '0.88'
   Test::Requires: '0'
+  constant: '0'
   overload: '0'
   version: '0'
 configure_requires:
@@ -17,6 +18,15 @@ configure_requires:
   Module::Build::Tiny: '0.036'
 dynamic_config: 0
 generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.141520'
+keywords:
+  - namespaces
+  - clean
+  - dirty
+  - imports
+  - exports
+  - subroutines
+  - methods
+  - development
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -29,7 +39,7 @@ no_index:
 provides:
   namespace::autoclean:
     file: lib/namespace/autoclean.pm
-    version: '0.18'
+    version: '0.19'
 requires:
   B::Hooks::EndOfScope: '0.12'
   List::Util: '0'
@@ -42,7 +52,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=namespace-autoclean
   homepage: https://github.com/moose/namespace-autoclean
   repository: https://github.com/moose/namespace-autoclean.git
-version: '0.18'
+version: '0.19'
 x_Dist_Zilla:
   perl:
     version: '5.020000'
@@ -514,7 +524,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: '0.18'
+          tag: '0.19'
           tag_format: '%v%t'
           tag_message: v%v%t
           time_zone: local

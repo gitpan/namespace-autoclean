@@ -1,5 +1,9 @@
 Revision history for namespace-autoclean
 
+0.19      2014-06-17 04:57:07Z
+  - more comprehensive testing with Moo/Mouse/Moose
+  - fixed cleaning of constants
+
 0.18      2014-06-14 20:12:59Z
   - better method detection for Mouse (github #4, Graham Knop)
 
