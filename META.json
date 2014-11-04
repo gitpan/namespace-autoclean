@@ -177,7 +177,7 @@
    "provides" : {
       "namespace::autoclean" : {
          "file" : "lib/namespace/autoclean.pm",
-         "version" : "0.21"
+         "version" : "0.22"
       }
    },
    "release_status" : "stable",
@@ -193,7 +193,7 @@
          "web" : "https://github.com/moose/namespace-autoclean"
       }
    },
-   "version" : "0.21",
+   "version" : "0.22",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.020001"
@@ -940,7 +940,7 @@
                "Dist::Zilla::Plugin::Git::Tag" : {
                   "branch" : null,
                   "signed" : 0,
-                  "tag" : "0.21",
+                  "tag" : "0.22",
                   "tag_format" : "%v%t",
                   "tag_message" : "v%v%t",
                   "time_zone" : "local"

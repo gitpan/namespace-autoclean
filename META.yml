@@ -41,7 +41,7 @@ no_index:
 provides:
   namespace::autoclean:
     file: lib/namespace/autoclean.pm
-    version: '0.21'
+    version: '0.22'
 requires:
   B::Hooks::EndOfScope: '0.12'
   List::Util: '0'
@@ -54,7 +54,7 @@ resources:
   bugtracker: https://rt.cpan.org/Public/Dist/Display.html?Name=namespace-autoclean
   homepage: https://github.com/moose/namespace-autoclean
   repository: https://github.com/moose/namespace-autoclean.git
-version: '0.21'
+version: '0.22'
 x_Dist_Zilla:
   perl:
     version: '5.020001'
@@ -620,7 +620,7 @@ x_Dist_Zilla:
         Dist::Zilla::Plugin::Git::Tag:
           branch: ~
           signed: 0
-          tag: '0.21'
+          tag: '0.22'
           tag_format: '%v%t'
           tag_message: v%v%t
           time_zone: local

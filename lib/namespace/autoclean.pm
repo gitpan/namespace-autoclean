@@ -2,8 +2,8 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
-# git description: 0.20-6-g216bc1b
-$namespace::autoclean::VERSION = '0.21';
+# git description: 0.21-2-g546df0b
+$namespace::autoclean::VERSION = '0.22';
 # ABSTRACT: Keep imports out of your namespace
 # KEYWORDS: namespaces clean dirty imports exports subroutines methods development
 
@@ -188,9 +188,7 @@ sub _method_check {
         my %methods = map { $_ => 1 } $meta->get_method_list;
         $methods{meta} = 1
           if $meta->isa('Moose::Meta::Role') && Moose->VERSION < 0.90;
-        return Moose->VERSION > 2.1300
-            ? sub { $methods{$_[0]} }
-            : sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
+        return sub { $_[0] =~ /^\(/ || $methods{$_[0]} };
     }
     else {
         my $does = $package->can('does') ? 'does'
@@ -223,7 +221,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.21
+version 0.22
 
 =head1 SYNOPSIS
 
