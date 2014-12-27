@@ -2,8 +2,8 @@ use strict;
 use warnings;
 
 package namespace::autoclean;
-# git description: 0.21-2-g546df0b
-$namespace::autoclean::VERSION = '0.22';
+# git description: 0.22-4-g91a01b1
+{ our $VERSION = '0.23'; }
 # ABSTRACT: Keep imports out of your namespace
 # KEYWORDS: namespaces clean dirty imports exports subroutines methods development
 
@@ -221,7 +221,7 @@ namespace::autoclean - Keep imports out of your namespace
 
 =head1 VERSION
 
-version 0.22
+version 0.23
 
 =head1 SYNOPSIS
 

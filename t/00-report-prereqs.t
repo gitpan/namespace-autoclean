@@ -60,7 +60,13 @@ sub _merge_prereqs {
 }
 
 my @include = qw(
-
+  Class::MOP
+  Moose
+  MooseX::Role::WithOverloading
+  Moo
+  Mouse
+  Sub::Name
+  Sub::Install
 );
 
 my @exclude = qw(
