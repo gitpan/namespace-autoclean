@@ -65,6 +65,7 @@ my @include = qw(
   MooseX::Role::WithOverloading
   Moo
   Mouse
+  Mouse::PurePerl
   Sub::Name
   Sub::Install
 );

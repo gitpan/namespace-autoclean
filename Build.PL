@@ -78,7 +78,7 @@ EOW
         "Florian Ragwitz <rafl\@debian.org>"
       ],
       "dist_name" => "namespace-autoclean",
-      "dist_version" => "0.23",
+      "dist_version" => "0.24",
       "license" => "perl",
       "module_name" => "namespace::autoclean",
       "recommends" => {},
